@@ -6,7 +6,10 @@ Servo servo1, servo2, servo3,Brushless1;
 //Global Variables
 char c;
 String dataInput;
-int8_t servo1Deg, servo2Deg, servo3Deg, brushlessSPD;
+int8_t servo1Deg=45;
+int8_t servo2Deg=45;
+int8_t servo3Deg=45;
+int8_t brushlessSPD;
 int8_t indexOfA, indexOfB, indexOfC, indexOfD, indexOfE, indexOfF, indexOfG;
 bool init=false;
 bool start=false;
@@ -29,7 +32,7 @@ void setup() {
 
 void initialize_motor() {
   Serial.print("Okay, Starting to initailize...\n");
-  Serial.print("Setting high speed! and wait 2 sec! ");
+  Serial.print("Setting high speed! and wait 4 sec! ");
   Serial.println("(hearing beep-beep)");
   Brushless1.write(50);
   delay(500);
@@ -58,7 +61,7 @@ void initialize_motor() {
   delay(500);
   Brushless1.write(70);
   delay(500);
-  Brushless1.write(59);
+  Brushless1.write(5);
   delay(500);
   Serial.print("MOTOR IS READY! ");
   Serial.println("(hearing regular beep---beep---beep--- )");
@@ -154,6 +157,7 @@ void Parse_Data()
     str_brushlessInit = dataInput.substring(indexOfD+1, indexOfE);
     init = str_brushlessInit=="1"; 
     if(init){
+      servo1.write(45);
       initialize_motor();
       // testfunction();
     }
@@ -171,7 +175,8 @@ void Parse_Data()
     str_brushlessStop = dataInput.substring(indexOfE+1, indexOfF);
     stop = str_brushlessStop=="1"; 
     start = false;
-    Brushless1.write(59);
+    brushlessSPD=5;
+    Brushless1.write(5);
     delay(2000);
   }
 }
