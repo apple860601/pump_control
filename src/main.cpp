@@ -19,7 +19,7 @@ void setup() {
   // put your setup code here, to run once:
     Serial.begin(38400);
     Brushless1.attach(9);
-    Brushless1.write(0);
+    Brushless1.write(5);
 
     // servo.attach(pin, min, max)
     // min: the minimum pulse width [ms], which determines the 0-degree angle (default:544)
@@ -32,34 +32,37 @@ void setup() {
 
 void initialize_motor() {
   Serial.print("Okay, Starting to initailize...\n");
-  Serial.print("Setting high speed! and wait 4 sec! ");
+  Serial.print("Setting high speed! and wait 2 sec! ");
   Serial.println("(hearing beep-beep)");
-  Brushless1.write(50);
   delay(500);
-  Brushless1.write(70);
+  Brushless1.write(120);
+  delay(2000);
+  Serial.print("Setting back to low speed! and wait 2 sec! ");
+  Serial.println("(hearing beep-beep-beep)");
+  Brushless1.write(60);
+  delay(2000);
+  Brushless1.write(5);
+  delay(2000);
+  Serial.print("Testing.... ");
+  Brushless1.write(59);
   delay(500);
-  Brushless1.write(90);
+  Brushless1.write(65);
+  delay(500);
+  Brushless1.write(80);
+  delay(500);
+  Brushless1.write(95);
   delay(500);
   Brushless1.write(110);
   delay(500);
-  Brushless1.write(130);
+  Brushless1.write(120);
   delay(500);
-  Brushless1.write(150);
+  Brushless1.write(110);
   delay(500);
-  Brushless1.write(170);
+  Brushless1.write(95);
   delay(500);
-  Brushless1.write(180);
+  Brushless1.write(80);
   delay(500);
-  Serial.print("Setting back to low speed! and wait 4 sec! ");
-  Serial.println("(hearing beep-beep-beep)");
-  delay(500);
-  Brushless1.write(160);
-  delay(500);
-  Brushless1.write(130);
-  delay(500);
-  Brushless1.write(100);
-  delay(500);
-  Brushless1.write(70);
+  Brushless1.write(65);
   delay(500);
   Brushless1.write(5);
   delay(500);
@@ -146,13 +149,13 @@ void Parse_Data()
     servo3Deg = str_servo3Deg.toInt(); 
   }
 
-  if(indexOfD > -1) // the index of D not found
+  if(indexOfD > -1) // brushless speed
   {
     str_brushlessSPD = dataInput.substring(indexOfC+1, indexOfD);
     brushlessSPD = str_brushlessSPD.toInt(); 
   }
 
-  if(indexOfE > -1) // the index of E not found
+  if(indexOfE > -1) // init
   {
     str_brushlessInit = dataInput.substring(indexOfD+1, indexOfE);
     init = str_brushlessInit=="1"; 
@@ -163,14 +166,14 @@ void Parse_Data()
     }
   }
 
-  if(indexOfF > -1) // the index of F not found
+  if(indexOfF > -1) // start
   {
     str_brushlessStart = dataInput.substring(indexOfE+1, indexOfF);
     start = str_brushlessStart=="1"; 
     stop = false;
   }
 
-  if(indexOfG > -1) // the index of G not found
+  if(indexOfG > -1) // stop
   {
     str_brushlessStop = dataInput.substring(indexOfE+1, indexOfF);
     stop = str_brushlessStop=="1"; 
