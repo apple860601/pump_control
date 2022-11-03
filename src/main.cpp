@@ -21,7 +21,8 @@ void setup() {
     // servo.attach(pin, min, max)
     // min: the minimum pulse width [ms], which determines the 0-degree angle (default:544)
     // max: the maximum pulse width [ms], which determines the 180-degree angle (default:2400)
-    servo1.attach(3); 
+    servo1.attach(8); 
+    servo1.write(45);
     servo2.attach(4);
     servo3.attach(5);
 }
@@ -105,6 +106,7 @@ void Receive_Serial_Data()
   while(Serial.available())
   {
     c = Serial.read();
+    Serial.println(c);
     if(c == '\n') break;
     else dataInput += c;
   }
