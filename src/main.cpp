@@ -30,12 +30,35 @@ void initialize_motor() {
   Serial.print("Okay, Starting to initailize...\n");
   Serial.print("Setting high speed! and wait 2 sec! ");
   Serial.println("(hearing beep-beep)");
+  Brushless1.write(50);
+  delay(500);
+  Brushless1.write(70);
+  delay(500);
+  Brushless1.write(90);
+  delay(500);
+  Brushless1.write(110);
+  delay(500);
+  Brushless1.write(130);
+  delay(500);
+  Brushless1.write(150);
+  delay(500);
+  Brushless1.write(170);
+  delay(500);
   Brushless1.write(180);
-  delay(2000);
+  delay(500);
   Serial.print("Setting back to low speed! and wait 4 sec! ");
   Serial.println("(hearing beep-beep-beep)");
-  Brushless1.write(5);
-  delay(4000);
+  delay(500);
+  Brushless1.write(160);
+  delay(500);
+  Brushless1.write(130);
+  delay(500);
+  Brushless1.write(100);
+  delay(500);
+  Brushless1.write(70);
+  delay(500);
+  Brushless1.write(59);
+  delay(500);
   Serial.print("MOTOR IS READY! ");
   Serial.println("(hearing regular beep---beep---beep--- )");
 }
@@ -130,7 +153,7 @@ void Parse_Data()
     init = str_brushlessInit=="1"; 
     if(init){
       initialize_motor();
-      testfunction();
+      // testfunction();
     }
   }
 
@@ -141,7 +164,7 @@ void Parse_Data()
     stop = false;
   }
 
-    if(indexOfG > -1) // the index of G not found
+  if(indexOfG > -1) // the index of G not found
   {
     str_brushlessStop = dataInput.substring(indexOfE+1, indexOfF);
     stop = str_brushlessStop=="1"; 
