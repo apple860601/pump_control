@@ -46,65 +46,19 @@ void initialize_motor() {
   Serial.print("Testing.... ");
   Brushless1.write(59);
   delay(500);
-  Brushless1.write(65);
+  for (int i=60;i<=120;i++){
+    Brushless1.write(i);
+    delay(40);
+  }
   delay(500);
-  Brushless1.write(80);
-  delay(500);
-  Brushless1.write(95);
-  delay(500);
-  Brushless1.write(110);
-  delay(500);
-  Brushless1.write(120);
-  delay(500);
-  Brushless1.write(110);
-  delay(500);
-  Brushless1.write(95);
-  delay(500);
-  Brushless1.write(80);
-  delay(500);
-  Brushless1.write(65);
-  delay(500);
+  for (int i=120;i>=60;i--){
+    Brushless1.write(i);
+    delay(40);
+  }
   Brushless1.write(5);
   delay(500);
   Serial.print("MOTOR IS READY! ");
   Serial.println("(hearing regular beep---beep---beep--- )");
-}
-
-void testfunction() {
-  Serial.print("Okay, starting testing brushless motor...\n");
-  Serial.println("3");
-  delay(1000);
-  Serial.println("2");
-  delay(1000);
-  Serial.println("1");
-  delay(500);
-
-  Serial.print("Test1 Speed = 50, speed will increase in 1sec \n");
-  Brushless1.write(50);
-  delay(1000);
-
-  Serial.print("Test2 Speed = 80, speed will increase in 1sec \n");
-  Brushless1.write(60);
-  delay(1000);
-
-  Serial.print("Test3 Speed = 100, speed will increase in 1sec \n");
-  Brushless1.write(70);
-  delay(1000);
-
-  Serial.print("Test4 Speed = 120, speed will increase in 1sec \n");
-  Brushless1.write(80);
-  delay(1000);
-
-  Serial.print("Test5 Speed = 140, speed will increase in 1sec \n");
-  Brushless1.write(90);
-  delay(1000);
-
-  Serial.print("Test6 Speed = 165(BURST), speed will stop in 3sec \n");
-  Brushless1.write(165);
-  delay(3000);
-
-  Serial.println("STOP!");
-  Brushless1.write(5);
 }
 
 void Receive_Serial_Data()
