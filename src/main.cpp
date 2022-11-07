@@ -10,7 +10,7 @@ int8_t servo1Deg=45;
 int8_t servo2Deg=45;
 int8_t servo3Deg=45;
 int8_t brushlessSPD;
-int8_t indexOfA, indexOfB, indexOfC, indexOfD, indexOfE, indexOfF, indexOfG;
+int8_t indexOfA, indexOfB, indexOfC, indexOfD, indexOfI, indexOfR, indexOfS;
 bool init=false;
 bool start=false;
 bool stop=false;
@@ -66,7 +66,6 @@ void Receive_Serial_Data()
   while(Serial.available())
   {
     c = Serial.read();
-    Serial.println(c);
     if(c == '\n') break;
     else dataInput += c;
   }
@@ -75,15 +74,15 @@ void Receive_Serial_Data()
 void Parse_Data()
 {
   String str_servo1Deg, str_servo2Deg, str_servo3Deg, str_brushlessSPD, str_brushlessInit, str_brushlessStart, str_brushlessStop;
-  Serial.println(dataInput);
+  // Serial.println(dataInput);
 
   indexOfA = dataInput.indexOf("A");
   indexOfB = dataInput.indexOf("B");
   indexOfC = dataInput.indexOf("C");
   indexOfD = dataInput.indexOf("D");
-  indexOfE = dataInput.indexOf("E");
-  indexOfF = dataInput.indexOf("F");
-  indexOfG = dataInput.indexOf("G");
+  indexOfI = dataInput.indexOf("I");
+  indexOfR = dataInput.indexOf("R");
+  indexOfS = dataInput.indexOf("S");
 
   if(indexOfA > -1) // the index of A not found
   {
@@ -109,9 +108,9 @@ void Parse_Data()
     brushlessSPD = str_brushlessSPD.toInt(); 
   }
 
-  if(indexOfE > -1) // init
+  if(indexOfI > -1) // init
   {
-    str_brushlessInit = dataInput.substring(indexOfD+1, indexOfE);
+    str_brushlessInit = dataInput.substring(indexOfD+1, indexOfI);
     init = str_brushlessInit=="1"; 
     if(init){
       servo1.write(45);
@@ -120,21 +119,22 @@ void Parse_Data()
     }
   }
 
-  if(indexOfF > -1) // start
+  if(indexOfR > -1) // start
   {
-    str_brushlessStart = dataInput.substring(indexOfE+1, indexOfF);
+    str_brushlessStart = dataInput.substring(indexOfI+1, indexOfR);
     start = str_brushlessStart=="1"; 
     stop = false;
   }
 
-  if(indexOfG > -1) // stop
+  if(indexOfS > -1) // stop
   {
-    str_brushlessStop = dataInput.substring(indexOfE+1, indexOfF);
+    str_brushlessStop = dataInput.substring(indexOfI+1, indexOfR);
     stop = str_brushlessStop=="1"; 
     start = false;
     brushlessSPD=5;
-    Brushless1.write(5);
+    Brushless1.write(59);
     delay(2000);
+    Brushless1.write(5);
   }
 }
 
